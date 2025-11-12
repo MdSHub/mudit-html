@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload CSV to n8n</title>
+</head>
+<body>
+  <h2>Upload CSV for Processing</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".csv" required />
+    <button type="submit">Upload</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch('https://YOUR_N8N_URL/webhook/upload-csv', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.text();
+      alert('Uploaded! n8n is processing the CSV.');
+    });
+  </script>
+</body>
+</html>
